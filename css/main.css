@@ -1,0 +1,89 @@
+body {
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+}
+
+/* duplicate error */
+
+.error {
+  background: rgba(255,0,0,0.2);
+  transition: 0.3s;
+}
+.wrapper {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.row {
+  margin: 0px;
+  padding: 0px;
+  width: 304px;
+  display: flex;
+  flex-wrap: wrap;
+}
+  
+.square {
+  border: 1px solid black;
+  width: 100px;
+  height: 100px;
+  padding: 0px;
+  margin: 0px;
+  flex: 1 1 33%;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/*removing unnecessary borders*/
+#sq1{
+  border-top: none;
+  border-left: none;
+}
+#sq2{
+  border-top: none;
+}
+
+#sq3{
+  border-right: none;
+  border-top: none;
+}
+#sq4{
+  border-left: none;
+}
+#sq6{
+  border-right: none;
+}
+
+#sq7{
+  border-left: none;
+  border-bottom: none;
+}
+
+#sq8{
+  border-bottom: none;
+}
+
+#sq9{
+  border-right: none;
+  border-bottom: none;
+}
+
+
+/* X and O classes*/
+
+.cross img{
+  height: 70%;
+  width: 70%;
+}
+
+.circle img{
+  height: 70%;
+  width: 70%;
+}
