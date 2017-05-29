@@ -153,7 +153,8 @@ $(function(){
       //pushing move and score to moves array
       moves.push(move);
       
-      //stop looping if best move is found
+      //stop looping if best move is found 
+      //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
        if(player == humanPlayer) {
         if(move.score == -10) {
           break;
