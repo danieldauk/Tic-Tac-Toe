@@ -1,6 +1,8 @@
 var humanPlayer;
 var aiPlayer;
 var choice;
+var availableSpots;
+
 
 $(function(){
   
@@ -68,8 +70,62 @@ $(function(){
     }
     
   }
-
   
+  //checking for available spots 
+  function checkForAvailableSpots(board) {
+    return = board.filter(function(val) {
+      if(val != "O" && val !="X"){
+        return val;
+      }
+    });
+  }
+  
+  //minmax function
+  
+  
+  function minmax(newBoard, player) {
+    
+    //array for all available moves and their score
+    var moves = [];    
+    
+    //checking for available spots
+    
+    var availableSpots = checkForAvailableSpots(newBoard);
+    
+    //terminal states for recursion termination
+    if(checkForWin(newBoard, humanPlayer)) {
+      return 10;
+    } else if(checkForWin(newBoard, aiPlayer)){
+      return -10;
+    } else if(availableSpots.length == 0) {
+      return 0;
+    }
+    
+    //checking available moves and score of available moves
+    for(i=0; i<availableSpots.length; i++) {
+      
+      //creating move object for storage of index and score
+      var move = {};
+      move.index = availableSpots[i];
+      
+      //setting available move into newBoard and calling minmax
+      newBoard[availableSpots[i]] = player;
+      
+      //calling minmax (recursion) with different player
+      if(player == humanPlayer) {
+        minmax(newBoard, aiPlayer);
+      } else {
+        minmax(newBoard, humanPlayer);
+      }
+      
+      
+      
+      
+      
+    }
+    
+    
+  }
   
   
 });
