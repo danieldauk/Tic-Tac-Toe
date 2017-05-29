@@ -2,6 +2,7 @@ var humanPlayer;
 var aiPlayer;
 var choice;
 var availableSpots;
+var noOfRecursions = 0;
 
 
 $(function(){
@@ -38,20 +39,20 @@ $(function(){
     } else if(humanPlayer=="X") {
       $(this).addClass("cross");
       $(this).find("img").attr("src", "img/x.svg");
-      //putting moves into firstBoard array
-      firstBoard[$(this).attr("value")] = humanPlayer;
+      //putting moves into originalBoard array
+      originalBoard[$(this).attr("value")] = humanPlayer;
     } else {
       $(this).addClass("circle");
       $(this).find("img").attr("src", "img/o.svg");
-      //putting moves into firstBoard array
-      firstBoard[$(this).attr("value")] = humanPlayer;
+      //putting moves into originalBoard array
+      originalBoard[$(this).attr("value")] = humanPlayer;
     }
   });
   
-  //defining gaming firstBoard
-  var firstBoard = [0,1,2,
-                    3,4,5,
-                    6,7,8];
+  //defining gaming originalBoard
+  var originalBoard = [0,1,2,
+                      3,4,5,
+                      6,7,8];
   
   //checking for winning combos
   function checkForWin(board, player) {
@@ -73,7 +74,7 @@ $(function(){
   
   //checking for available spots 
   function checkForAvailableSpots(board) {
-    return = board.filter(function(val) {
+    return board.filter(function(val) {
       if(val != "O" && val !="X"){
         return val;
       }
@@ -84,7 +85,7 @@ $(function(){
   
   
   function minmax(newBoard, player) {
-    
+    noOfRecursions++;
     //array for all available moves and their score
     var moves = [];    
     
@@ -94,9 +95,9 @@ $(function(){
     
     //terminal states for recursion termination
     if(checkForWin(newBoard, humanPlayer)) {
-      return 10;
-    } else if(checkForWin(newBoard, aiPlayer)){
       return -10;
+    } else if(checkForWin(newBoard, aiPlayer)){
+      return 10;
     } else if(availableSpots.length == 0) {
       return 0;
     }
@@ -111,18 +112,48 @@ $(function(){
       //setting available move into newBoard and calling minmax
       newBoard[availableSpots[i]] = player;
       
-      //calling minmax (recursion) with different player
+      //calling minmax (recursion happens here) with different player
       if(player == humanPlayer) {
-        minmax(newBoard, aiPlayer);
+        var result = minmax(newBoard, aiPlayer);
+        //pushing score of the move
+        move.score = result;
       } else {
-        minmax(newBoard, humanPlayer);
+        var result = minmax(newBoard, humanPlayer);
+        //pushing score of the move to move object
+        move.score = result;
       }
       
       
+      //resetting newBoard
+      newBoard[availableSpots[i]] = move.index;
       
-      
+      //pushing move and score to moves array
+      moves.push(move);
       
     }
+    
+    
+    bestMove;
+    
+    if(player == aiPlayer) {
+      bestScore = -100;
+      for(i=0; i<moves.length; i++) {
+        if(moves[i].score > bestScore) {
+          bestScore = moves[i].score;
+          bestMove = i;
+        }
+      }
+    } else if(player == humanPlayer) {
+      bestScore = 100;
+      for(i=0; i<moves.length; i++) {
+        if(moves[i].score < bestScore) {
+          bestScore = moves[i].score;
+          bestMove = i;
+        }
+      }
+    }
+    
+    return moves[bestMove];
     
     
   }
