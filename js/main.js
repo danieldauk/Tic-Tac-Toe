@@ -1,9 +1,6 @@
 var humanPlayer;
 var aiPlayer;
 var choice;
-var availableSpots;
-var noOfRecursions = 0;
-
 
 $(function(){
   
@@ -41,18 +38,41 @@ $(function(){
       $(this).find("img").attr("src", "img/x.svg");
       //putting moves into originalBoard array
       originalBoard[$(this).attr("value")] = humanPlayer;
+      nextAiMove();
     } else {
       $(this).addClass("circle");
       $(this).find("img").attr("src", "img/o.svg");
       //putting moves into originalBoard array
       originalBoard[$(this).attr("value")] = humanPlayer;
+      nextAiMove();
     }
   });
   
+  //defining nexAiMove function to get AI move
+  
+  function nextAiMove() {
+   var aiMove =  minmax(originalBoard, aiPlayer);
+   var aiMoveIndex = aiMove.index;
+    
+    //updating original board
+    originalBoard[aiMoveIndex] = aiPlayer;
+    var moveId = "#sq" + aiMoveIndex;
+    //making move
+    if(aiPlayer == "O"){
+      console.log(moveId);
+      $(moveId).addClass("circle");
+      $(moveId).find("img").attr("src", "img/o.svg");
+    } else if(aiPlayer == "X") {
+      $(moveId).addClass("cross");
+      $(moveId).find("img").attr("src", "img/x.svg");
+    }
+    
+  }
+  
   //defining gaming originalBoard
-  var originalBoard = [0,1,2,
+  var originalBoard = ["X","O","X",
                       3,4,5,
-                      6,7,8];
+                       6,7,8];
   
   //checking for winning combos
   function checkForWin(board, player) {
@@ -85,7 +105,7 @@ $(function(){
   
   
   function minmax(newBoard, player) {
-    noOfRecursions++;
+
     //array for all available moves and their score
     var moves = [];    
     
@@ -93,17 +113,20 @@ $(function(){
     
     var availableSpots = checkForAvailableSpots(newBoard);
     
+    
     //terminal states for recursion termination
     if(checkForWin(newBoard, humanPlayer)) {
-      return -10;
+      return {score:-10};
     } else if(checkForWin(newBoard, aiPlayer)){
-      return 10;
-    } else if(availableSpots.length == 0) {
-      return 0;
+      return {score:10};
+    } else if(availableSpots.length === 0) {
+      return {score:0};
     }
+    
     
     //checking available moves and score of available moves
     for(i=0; i<availableSpots.length; i++) {
+      
       
       //creating move object for storage of index and score
       var move = {};
@@ -116,11 +139,11 @@ $(function(){
       if(player == humanPlayer) {
         var result = minmax(newBoard, aiPlayer);
         //pushing score of the move
-        move.score = result;
+        move.score = result.score;
       } else {
         var result = minmax(newBoard, humanPlayer);
         //pushing score of the move to move object
-        move.score = result;
+        move.score = result.score;
       }
       
       
@@ -130,10 +153,22 @@ $(function(){
       //pushing move and score to moves array
       moves.push(move);
       
+      //stop looping if best move is found
+       if(player == humanPlayer) {
+        if(move.score == -10) {
+          break;
+        }
+      } else if (player == aiPlayer) {
+        if(move.score == 10) {
+          break;
+        }
+      }
+      
     }
-    
-    
-    bestMove;
+    //evaluating best move 
+    //highest for AI
+    //lowest for human
+    var bestMove;
     
     if(player == aiPlayer) {
       bestScore = -100;
@@ -141,6 +176,7 @@ $(function(){
         if(moves[i].score > bestScore) {
           bestScore = moves[i].score;
           bestMove = i;
+
         }
       }
     } else if(player == humanPlayer) {
@@ -152,7 +188,7 @@ $(function(){
         }
       }
     }
-    
+
     return moves[bestMove];
     
     

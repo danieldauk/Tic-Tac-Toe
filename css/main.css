@@ -42,35 +42,35 @@ body {
 
 
 /*removing unnecessary borders*/
-#sq1{
+#sq0{
   border-top: none;
   border-left: none;
 }
-#sq2{
+#sq1{
   border-top: none;
 }
 
-#sq3{
+#sq2{
   border-right: none;
   border-top: none;
 }
-#sq4{
+#sq3{
   border-left: none;
 }
-#sq6{
+#sq5{
   border-right: none;
+}
+
+#sq6{
+  border-left: none;
+  border-bottom: none;
 }
 
 #sq7{
-  border-left: none;
   border-bottom: none;
 }
 
 #sq8{
-  border-bottom: none;
-}
-
-#sq9{
   border-right: none;
   border-bottom: none;
 }
