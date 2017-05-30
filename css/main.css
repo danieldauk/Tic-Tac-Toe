@@ -1,24 +1,51 @@
+/*
+Colors:
+grey: rgba(44,62,80,1);
+red: rgba(231,76,60,1);
+white: rgba(236,240,241,1);
+light blue: rgba(52,152,219,1);
+dark blue: rgba(41,128,185,1);
+
+*/
+
+* {
+  outline: none;
+}
+
 body {
   height: 100vh;
   margin: 0px;
   padding: 0px;
+  font-family: "Open Sans", sans-serif, monospace;
 }
 
-
+button {
+  cursor: pointer;
+}
 
 /* MENU */
 .menu {
   height: 100vh;
+  background: rgba(52,152,219,1);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  
 }
 
 .noughtsOrCrosses{
   display: flex;
   justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
+  height: 20vh;
+  margin-top: 10vh;
 }
 
 .xandO {
-  height: 50px;
-  width: 50px;
+  height: 90px;
+  width: 90px;
+  margin: 1vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,30 +53,46 @@ body {
   border: none;
 }
 
+
 .xandO img{
-  height: 40px;
-  width: 40px;
+  height: 80px;
+  width: 80px;
 }
 
 .difficultyLevel {
   display: flex;
   justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
+  height: 20vh;
 }
 
 .play {
   display: flex;
   justify-content: center;
+  height: 10vh;
 }
 
 
 .diff {
-  background: none;
+  background:  rgba(236,240,241,1);
   border: none;
+  margin: 2vh;
+  height: 6vh;
+  width: 17vh;
+  border-radius: 5px;
+  color: rgba(44,62,80,1);
+  font-size: 2.5vh;
 }
 
 #startGame {
-  background: none;
+  background:  rgba(231,76,60,0.8);
   border: none;
+  height: 8vh;
+  width: 13vh;
+  border-radius: 5px;
+  color: rgba(236,240,241,1);
+  font-size: 3vh;
 }
 
 /* Wrapper MENU buttons */
@@ -57,14 +100,44 @@ body {
   display: flex;
   width: 100%;
   justify-content: center;
-  
+}
+
+#menuBtn {
+  border: none;
+  background: rgba(236,240,241,1);
+  width: 14vh;
+  height: 7vh;
+  border-radius: 5px;
+  margin: 1vh;
+  font-size: 2.7vh;
+}
+
+#resetBtn {
+  border: none;
+  background: rgba(231,76,60,0.8);
+  color: rgba(236,240,241,1);
+  height: 7vh;
+  width: 14vh;
+  border-radius: 5px;
+  margin: 1vh;
+  font-size: 2.7vh;
+}
+button:hover {
+  opacity: 0.8;
 }
 
 
+.text {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(236,240,241,1);
+  width: 100%;
+}
 /* duplicate error */
 
 .error {
-  background: rgba(255,0,0,0.2);
+  background: rgba(231,76,60,0.6);
   transition: 0.3s;
 }
 .wrapper {
@@ -74,6 +147,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  background: rgba(52,152,219,1);
 }
 
 .row {
@@ -85,7 +159,7 @@ body {
 }
   
 .square {
-  border: 1px solid black;
+  border: 2px solid rgba(41,128,185,1);
   width: 100px;
   height: 100px;
   padding: 0px;
@@ -153,4 +227,19 @@ img[src] {
 .circle img{
   height: 70%;
   width: 70%;
+}
+
+/* click effect */
+
+.clicked {
+  transform: scale(0.95);
+  transition: 0.2s;
+}
+
+/* select effect */
+
+.selected {
+  background: rgba(231,76,60,0.6);
+  border-radius: 5px;
+  color: rgba(236,240,241,1)
 }

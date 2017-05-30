@@ -274,6 +274,26 @@ $(function(){
       return moves[bestMove];
     
   }
+ 
   
+  //button effect
+  
+  $("button").on("mousedown", function() {
+    $(this).addClass("clicked");
+  });
+  $("button").on("mouseup mouseleave", function() {
+    $(this).removeClass("clicked");
+  });
+  
+  //select effect
+  $(".xandO").on("click", function() {
+    $(".xandO").removeClass("selected");
+    $(this).addClass("selected");
+  });
+  
+  $(".diff").on("click", function() {
+    $(".diff").removeClass("selected");
+    $(this).addClass("selected");
+  });
   
 });
