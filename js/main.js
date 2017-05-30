@@ -1,6 +1,9 @@
+
+
 var humanPlayer;
 var aiPlayer;
 var choice;
+var diffLevel = 0;
 
 $(function(){
   
@@ -21,8 +24,31 @@ $(function(){
   }
   
   
+  //choosing difficulty level
+  chooseLevel();
+  function chooseLevel() {
+     diffLevel = prompt("Difficulty level? (1, 2  or 3)");
+    if (diffLevel == "1" || diffLevel == "2"||diffLevel == "3") {
+      
+    } else {
+      chooseLevel();
+    }
+  }
+  
+   //defining gaming originalBoard
+  var originalBoard = [0,1,2,
+                      3,4,5,
+                       6,7,8];
+  
+  
+  //if player chose "O" computer moves first
+  if(humanPlayer == "O") {
+  nextAiMove(); 
+  }
+  
   //on square click 
   $(".square").on("click", function() {
+    console.log(originalBoard);
     
     //preventing from duplicates and error message
     if($(this).hasClass("cross") || $(this).hasClass("circle")) {
@@ -38,14 +64,27 @@ $(function(){
       $(this).find("img").attr("src", "img/x.svg");
       //putting moves into originalBoard array
       originalBoard[$(this).attr("value")] = humanPlayer;
+      if(checkForWin(originalBoard, humanPlayer)) {
+        setTimeout(function() {alert("you won");}, 500);
+      }
       nextAiMove();
+      if(checkForWin(originalBoard, aiPlayer)) {
+        setTimeout(function() {alert("PC won");}, 500);
+      }
     } else {
       $(this).addClass("circle");
       $(this).find("img").attr("src", "img/o.svg");
       //putting moves into originalBoard array
       originalBoard[$(this).attr("value")] = humanPlayer;
+      if(checkForWin(originalBoard, humanPlayer)) {
+        setTimeout(function() {alert("you won");}, 500);
+      }
       nextAiMove();
+      if(checkForWin(originalBoard, aiPlayer)) {
+        setTimeout(function() {alert("PC won");}, 500);
+      }
     }
+    
   });
   
   //defining nexAiMove function to get AI move
@@ -59,20 +98,14 @@ $(function(){
     var moveId = "#sq" + aiMoveIndex;
     //making move
     if(aiPlayer == "O"){
-      console.log(moveId);
       $(moveId).addClass("circle");
       $(moveId).find("img").attr("src", "img/o.svg");
     } else if(aiPlayer == "X") {
       $(moveId).addClass("cross");
       $(moveId).find("img").attr("src", "img/x.svg");
     }
-    
+
   }
-  
-  //defining gaming originalBoard
-  var originalBoard = ["X","O","X",
-                      3,4,5,
-                       6,7,8];
   
   //checking for winning combos
   function checkForWin(board, player) {
@@ -95,20 +128,17 @@ $(function(){
   //checking for available spots 
   function checkForAvailableSpots(board) {
     return board.filter(function(val) {
-      if(val != "O" && val !="X"){
-        return val;
+      if(val !== "O" && val !=="X"){
+        return true;
       }
     });
   }
-  
+   
   //minmax function
   
   
   function minmax(newBoard, player) {
 
-    //array for all available moves and their score
-    var moves = [];    
-    
     //checking for available spots
     
     var availableSpots = checkForAvailableSpots(newBoard);
@@ -124,9 +154,11 @@ $(function(){
     }
     
     
+    //array for all available moves and their score
+    var moves = [];    
+    
     //checking available moves and score of available moves
-    for(i=0; i<availableSpots.length; i++) {
-      
+    for(var i=0; i<availableSpots.length; i++) {
       
       //creating move object for storage of index and score
       var move = {};
@@ -153,35 +185,23 @@ $(function(){
       //pushing move and score to moves array
       moves.push(move);
       
-      //stop looping if best move is found 
-      //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-       if(player == humanPlayer) {
-        if(move.score == -10) {
-          break;
-        }
-      } else if (player == aiPlayer) {
-        if(move.score == 10) {
-          break;
-        }
-      }
-      
     }
+
     //evaluating best move 
     //highest for AI
     //lowest for human
     var bestMove;
     
     if(player == aiPlayer) {
-      bestScore = -100;
+      var bestScore = -100;
       for(i=0; i<moves.length; i++) {
         if(moves[i].score > bestScore) {
           bestScore = moves[i].score;
           bestMove = i;
-
         }
       }
-    } else if(player == humanPlayer) {
-      bestScore = 100;
+    } else {
+      var bestScore = 100;
       for(i=0; i<moves.length; i++) {
         if(moves[i].score < bestScore) {
           bestScore = moves[i].score;
@@ -189,11 +209,9 @@ $(function(){
         }
       }
     }
-
+    
     return moves[bestMove];
-    
-    
+
   }
-  
   
 });
