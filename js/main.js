@@ -16,12 +16,12 @@ $(function(){
   //choosing X or O 
   $(".wrapper").fadeOut();
   $("#naughts").on("click", function() {
-    humanPlayer = "X";
-    aiPlayer = "O";
-  });
-  $("#crosses").on("click", function() {
     humanPlayer = "O";
     aiPlayer = "X";
+  });
+  $("#crosses").on("click", function() {
+    humanPlayer = "X";
+    aiPlayer = "O";
   });
     
   //choosing difficulty level
@@ -70,13 +70,14 @@ $(function(){
     originalBoard = [0,1,2,
                     3,4,5,
                     6,7,8];
+    //if player chose "O" computer moves first
+      if(humanPlayer == "O") {
+      nextAiMove(); 
+    }
   }
   
   
-      //if player chose "O" computer moves first
-    if(humanPlayer == "O") {
-    nextAiMove(); 
-    }
+
 
     //on square click 
     $(".square").on("click", function() {
@@ -130,19 +131,19 @@ $(function(){
 
     function nextAiMove() {
 
-       //difficulty level
+       //difficulty level 1
         if(diffLevel==1) {
           var availableSpots = checkForAvailableSpots(originalBoard);
           var randNumber = Math.floor(Math.random() *availableSpots.length);
           var aiMoveIndex = availableSpots[randNumber];
+      //difficulty level 2 (50% random 50%minmax)
         } else if(diffLevel == 2){
-          if(diffLevel2 == 0) {
-            console.log("minmax");
+          if(diffLevel2 == 0) {    
             diffLevel2 = 1;
             var aiMove =  minmax(originalBoard, aiPlayer);
             var aiMoveIndex = aiMove.index;
           } else {
-            console.log("random");
+      //difficulty level 3 (100% minmax)
             diffLevel2 = 0;
             var availableSpots = checkForAvailableSpots(originalBoard);
             var randNumber = Math.floor(Math.random() *availableSpots.length);
