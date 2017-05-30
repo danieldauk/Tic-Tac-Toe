@@ -4,6 +4,7 @@ var humanPlayer;
 var aiPlayer;
 var choice;
 var diffLevel = 0;
+var diffLevel2 = 0;
 
 $(function(){
   
@@ -64,34 +65,63 @@ $(function(){
       $(this).find("img").attr("src", "img/x.svg");
       //putting moves into originalBoard array
       originalBoard[$(this).attr("value")] = humanPlayer;
-      if(checkForWin(originalBoard, humanPlayer)) {
-        setTimeout(function() {alert("you won");}, 500);
-      }
-      nextAiMove();
-      if(checkForWin(originalBoard, aiPlayer)) {
-        setTimeout(function() {alert("PC won");}, 500);
-      }
+         nextAiMove();
     } else {
       $(this).addClass("circle");
       $(this).find("img").attr("src", "img/o.svg");
       //putting moves into originalBoard array
       originalBoard[$(this).attr("value")] = humanPlayer;
-      if(checkForWin(originalBoard, humanPlayer)) {
-        setTimeout(function() {alert("you won");}, 500);
-      }
       nextAiMove();
-      if(checkForWin(originalBoard, aiPlayer)) {
-        setTimeout(function() {alert("PC won");}, 500);
-      }
     }
     
+    //check results
+    //checking for win and allerting the player
+      if(checkForWin(originalBoard, humanPlayer)) {
+        setTimeout(function() {
+          alert("you won");
+        }, 500);
+      } else if(checkForWin(originalBoard, aiPlayer)) {
+        setTimeout(function() {
+          alert("PC won");
+        }, 500);
+      } else {
+        var availableSpots = checkForAvailableSpots(originalBoard);
+        if(availableSpots.length === 0) {
+          setTimeout(function() {
+          alert("Tie");
+        }, 500);
+        }
+      }             
+
   });
   
   //defining nexAiMove function to get AI move
   
   function nextAiMove() {
-   var aiMove =  minmax(originalBoard, aiPlayer);
-   var aiMoveIndex = aiMove.index;
+    
+     //difficulty level
+      if(diffLevel==1) {
+        var availableSpots = checkForAvailableSpots(originalBoard);
+        var randNumber = Math.floor(Math.random() *availableSpots.length);
+        var aiMoveIndex = availableSpots[randNumber];
+      } else if(diffLevel == 2){
+        if(diffLevel2 == 0) {
+          console.log("minmax");
+          diffLevel2 = 1;
+          var aiMove =  minmax(originalBoard, aiPlayer);
+          var aiMoveIndex = aiMove.index;
+        } else {
+          console.log("random");
+          diffLevel2 = 0;
+          var availableSpots = checkForAvailableSpots(originalBoard);
+          var randNumber = Math.floor(Math.random() *availableSpots.length);
+          var aiMoveIndex = availableSpots[randNumber];
+        }
+      } else {
+        var aiMove =  minmax(originalBoard, aiPlayer);
+        var aiMoveIndex = aiMove.index;
+      }
+   
     
     //updating original board
     originalBoard[aiMoveIndex] = aiPlayer;
