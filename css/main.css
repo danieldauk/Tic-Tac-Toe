@@ -4,6 +4,63 @@ body {
   padding: 0px;
 }
 
+
+
+/* MENU */
+.menu {
+  height: 100vh;
+}
+
+.noughtsOrCrosses{
+  display: flex;
+  justify-content: center;
+}
+
+.xandO {
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+}
+
+.xandO img{
+  height: 40px;
+  width: 40px;
+}
+
+.difficultyLevel {
+  display: flex;
+  justify-content: center;
+}
+
+.play {
+  display: flex;
+  justify-content: center;
+}
+
+
+.diff {
+  background: none;
+  border: none;
+}
+
+#startGame {
+  background: none;
+  border: none;
+}
+
+/* Wrapper MENU buttons */
+.wrapperMenu {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  
+}
+
+
 /* duplicate error */
 
 .error {
@@ -16,6 +73,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .row {
@@ -40,6 +98,15 @@ body {
   align-items: center;
 }
 
+/*hiding images without src*/
+
+img {
+  visibility: hidden;
+}
+
+img[src] {
+  visibility: visible;
+}
 
 /*removing unnecessary borders*/
 #sq0{
