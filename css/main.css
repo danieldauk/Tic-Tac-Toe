@@ -261,9 +261,19 @@ img[src] {
 /*MEDIA QUERIES*/
 
 @media (max-width: 480px) {
-  .play {
-  display: flex;
-  justify-content: center;
-  margin-top: 4vh;
+  .xandO {
+    height: 70px;
+    width: 70px;
   }
+
+
+  .xandO img{
+    height: 60px;
+    width: 60px;
+  }
+  
+  .play {
+    margin-top: 5vh;
+  }
+  
 }
