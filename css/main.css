@@ -32,6 +32,20 @@ button {
   justify-content: center;
   
 }
+.messages {
+  display: flex;
+  height: 10vh;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+.message {
+  color: rgba(231,76,60,0.8);
+  font-size: 4.3vh;
+  font-weight: 800;
+  visibility: hidden;
+}
 
 .noughtsOrCrosses{
   display: flex;
@@ -39,7 +53,6 @@ button {
   width: 100%;
   flex-wrap: wrap;
   height: 20vh;
-  margin-top: 10vh;
 }
 
 .xandO {
@@ -242,4 +255,14 @@ img[src] {
   background: rgba(231,76,60,0.6);
   border-radius: 5px;
   color: rgba(236,240,241,1)
+}
+
+/*MEDIA QUERIES*/
+
+@media (max-width: 480px) {
+  .play {
+  display: flex;
+  justify-content: center;
+  margin-top: 4vh;
+  }
 }

@@ -12,6 +12,9 @@ var originalBoard = [0,1,2,
 
 
 $(function(){
+
+  //alert messages
+  $(".message").hide();
   
   //choosing X or O 
   $(".wrapper").fadeOut();
@@ -43,11 +46,20 @@ $(function(){
       $(".wrapper").fadeIn();
     } else {
       if(diffLevel == 0 && humanPlayer == 0) {
-        alert("Please select difficulty and Naughts or Crosses");
+        $("#diffAndNaughts").css("visibility", "visible").show();
+        setTimeout(function() {
+          $("#diffAndNaughts").fadeOut();
+        }, 1500);
       } else if(diffLevel ==0 ) {
-        alert("Please select difficulty level");
+        $("#diffMessage").css("visibility", "visible").show();
+        setTimeout(function() {
+          $("#diffMessage").fadeOut();
+        }, 1500);
       } else if (humanPlayer == 0) {
-        alert("Please select Naughts or Crosses");
+        $("#NaughtsAndCrosses").css("visibility", "visible").show();
+        setTimeout(function() {
+          $("#NaughtsAndCrosses").fadeOut();
+        }, 1500);
       }
     }
   });
@@ -64,6 +76,7 @@ $(function(){
   
 //declaring resetBoard function
   function resetBoard() {
+    $(".message").hide();
     $(".wrapper img").removeAttr("src");
     $(".square").removeClass("circle");
     $(".square").removeClass("cross");
@@ -109,19 +122,22 @@ $(function(){
       //check results
       //checking for win and allerting the player
         if(checkForWin(originalBoard, humanPlayer)) {
-          setTimeout(function() {
-            alert("you won");
-          }, 500);
+          $("#youWon").css("visibility", "visible").show();
+          setTimeout(function(){
+            resetBoard();
+          }, 1000);
         } else if(checkForWin(originalBoard, aiPlayer)) {
-          setTimeout(function() {
-            alert("PC won");
-          }, 500);
+          $("#pcWon").css("visibility", "visible").show();
+          setTimeout(function(){
+            resetBoard();
+          }, 1000);
         } else {
           var availableSpots = checkForAvailableSpots(originalBoard);
           if(availableSpots.length === 0) {
-            setTimeout(function() {
-            alert("Tie");
-          }, 500);
+            $("#tie").css("visibility", "visible").show();
+            setTimeout(function(){
+              resetBoard();
+            }, 1000);
           }
         }             
 
