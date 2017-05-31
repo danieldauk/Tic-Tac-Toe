@@ -57,7 +57,7 @@ button {
 
 .xandO {
   height: 90px;
-  width: 90px;
+  width: auto;
   margin: 2%;
   display: flex;
   justify-content: center;
@@ -70,6 +70,7 @@ button {
 .xandO img{
   height: 80px;
   width: 80px;
+  display: flex;
 }
 
 .difficultyLevel {
@@ -261,16 +262,7 @@ img[src] {
 /*MEDIA QUERIES*/
 
 @media (max-width: 480px) {
-  .xandO {
-    height: 70px;
-    width: 70px;
-  }
 
-
-  .xandO img{
-    height: 60px;
-    width: 60px;
-  }
   
   .play {
     margin-top: 5vh;
