@@ -52,13 +52,13 @@ button {
   justify-content: center;
   width: 100%;
   flex-wrap: wrap;
-  height: 20vh;
+  height: 30vh;
 }
 
 .xandO {
   height: 90px;
   width: 90px;
-  margin: 1vh;
+  margin: 2%;
   display: flex;
   justify-content: center;
   align-items: center;
